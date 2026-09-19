@@ -2,7 +2,7 @@ const db = require('./connection.js');
 
 async function getID(user) {
         const queryText = `
-		SELECT "user", rsn FROM users
+		SELECT "user", rsn, old FROM users
 		WHERE "user" = '${user}';
 	`;
     try { 
@@ -14,9 +14,8 @@ async function getID(user) {
 
 async function getRSN(rsn) {
     const queryText = `
-		SELECT "user", rsn FROM users
-		WHERE rsn = '${rsn}'
-		LIMIT 1;
+		SELECT "user", rsn, old FROM users
+		WHERE rsn = '${rsn}';
 	`;
     try { 
 		const res = await db.query(queryText);

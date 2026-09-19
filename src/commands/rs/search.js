@@ -25,9 +25,13 @@ module.exports = {
 		if(rows.length === 0) return interaction.reply("No data found! :3");
 		else {
 			desc = "";
+
+			const member = await interaction.guild.members.fetch(rows[0].user);
+			if (!member) console.log('!!!!Member not found in this guild.');
+			else if (member.roles.cache.has("1367972356093509755")) desc += ":white_check_mark: Verified member \n\n";
+			else desc += ":x: Unverified member \n\n";
+
 			notes = await getNotes(rows[0].user);
-			console.log(rows[0].user)
-			console.log(notes)
 			if(notes.length != 0) {
 				desc += "Notes: \n"
 				notes.forEach((note) => {
@@ -36,7 +40,8 @@ module.exports = {
 				desc += "\n"
 			}
 			rows.forEach((row) => {
-				desc += "<@"+row.user+"> - "+row.rsn+"\n"
+				if(row.old) desc += "<@"+row.user+"> - ~~"+row.rsn+"~~\n"
+				else desc += "<@"+row.user+"> - "+row.rsn+"\n"
 			});
 			
 			const embed = new EmbedBuilder()

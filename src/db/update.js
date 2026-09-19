@@ -1,14 +1,17 @@
 const db = require('./connection.js');
+const { getRSN } = require('./read.js');
+const { createUser } = require('./create.js');
 
 async function updateRSN(rsn, newRSN) {
-	const queryText = `
+	queryText = `
 		UPDATE users
-		SET rsn = '${newRSN}'
+		SET old = true
 		WHERE rsn = '${rsn}';
 	`;
 	try { 
-		const res = await db.query(queryText);
-		return res.rows;
+		await db.query(queryText);
+		user = await getRSN(rsn);
+		await createUser(user[0].user, newRSN);
 	} 
 	catch (err) { console.error('🟥 Error getting data:', err.stack); }
 }
