@@ -3,7 +3,6 @@ const path = require("node:path");
 const { Client, Collection, Events, GatewayIntentBits, version } = require("discord.js");
 require("dotenv").config()
 
-const { handleModal } = require("./handler/handleModal.js");
 const { handleCommand} = require("./handler/handleCommand.js");
 const { handleMessage } = require("./handler/handleMessage.js");
 

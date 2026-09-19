@@ -1,17 +1,28 @@
 const db = require('./connection.js');
 
-async function storeMessage(message) {
+async function createUser(id, rsn) {
 	const queryText = `
-		INSERT INTO messages (message_id, author_id, content) 
-		VALUES ($1, $2, $3)
-		ON CONFLICT (message_id) DO NOTHING;
+		INSERT INTO users (id, "user", rsn) 
+		VALUES (DEFAULT, $1, $2);
 	`;
-	const values = [message.id, message.author.id, message.content];
+	const values = [id, rsn];
+
+	try { await db.query(queryText, values); } 
+	catch (err) { console.error('🟥 Error saving message:', err.stack); }
+}
+
+async function createNote(id, note) {
+	const queryText = `
+		INSERT INTO notes (id, "user", note) 
+		VALUES (DEFAULT, $1, $2);
+	`;
+	const values = [id, note];
 
 	try { await db.query(queryText, values); } 
 	catch (err) { console.error('🟥 Error saving message:', err.stack); }
 }
 
 module.exports = {
-  storeMessage
+  createUser,
+  createNote
 };

@@ -1,6 +1,6 @@
 services:
   db:
-    container_name: postgreSQL
+    container_name: postgreSQL-meow
     image: postgres:17
     restart: always
     environment:
@@ -13,7 +13,7 @@ services:
       - pgdata:/var/lib/postgresql/data
 
   pgadmin:
-    container_name: pgadmin4
+    container_name: pgadmin4-meow
     image: dpage/pgadmin4:8.13
     restart: always
     environment:
@@ -25,13 +25,16 @@ services:
       - pgadmin:/var/lib/pgadmin
     depends_on:
       - db
+
   bot:
-    container_name: pawfect-bot
-    image: pawfect-bot:1
+    container_name: meow-bot
+    image: meow-bot:1
     restart: always
+    volumes:
+      - ./data:/usr/src/meowBot/data
 
 volumes:
   pgdata:
-    name: paw_docker_pgdata
+    name: meow_docker_pgdata
   pgadmin:
-    name: paw_docker_pgadmin
+    name: meow_docker_pgadmin

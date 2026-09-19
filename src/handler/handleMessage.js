@@ -1,13 +1,14 @@
-const { storeMessage } = require("../db/create");
+const { updateRSN } = require('../db/update.js');
 
 async function handleMessage(message) {
-	if (message.author.bot) return;
+	if (message.author.bot && message.embeds.length != 0) {
+		if (message.embeds[0].title.includes("Member Name Changed")) {
+			const [rsn, newRSN] = message.embeds[0].description.split(" → ")
+				.map(name => name.replace(/`/g, "").trim());
+			await updateRSN(rsn, newRSN)
+		}
+	} else if (message.author.bot) return;
 	console.log("> Message log: " + message.content);
-	if (message.content.includes("01JTA6SWH4MA14NYBB72DYJQHZ")) message.reply("<@&1423819248022851664>:bangbang:");
-	if (message.content.includes(":3")) message.reply(":3");
-	if (message.content.includes("٤:")) message.reply("٤:");
-	if (message.content.includes("Ɛ:")) message.reply("Ɛ:");
-	await storeMessage(message);
 }
 
 module.exports = {

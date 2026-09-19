@@ -6,7 +6,7 @@ async function handleCommand(interaction) {
 		await command.execute(interaction);
 	} catch (error) {
 		console.error(error);
-		await interaction.reply({ content: "🟥 Error executing command", ephemeral: true });
+		await interaction.reply({ content: "🟥 Error executing command (please message Cait about this)", ephemeral: true });
 	}
 }
 
