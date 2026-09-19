@@ -9,7 +9,7 @@ module.exports = {
 			.setName("rsn")
 			.setDescription("RSN")
 			.setRequired(true))
-		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 	async execute(interaction) {
 		rsn = interaction.options.getString("rsn");
 		await deleteRSN(rsn);

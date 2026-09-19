@@ -11,7 +11,7 @@ module.exports = {
 		.addStringOption(option => option
 			.setName("rsn")
 			.setDescription("RSN"))
-		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 	async execute(interaction) {
 		user = interaction.options.getMember("user");
 		rsn = interaction.options.getString("rsn");

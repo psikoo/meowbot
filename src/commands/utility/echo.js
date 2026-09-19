@@ -11,7 +11,7 @@ module.exports = {
 		.addStringOption(option => option
 			.setName("reply")
 			.setDescription("Url of a message to which the bot should reply to"))
-		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 	async execute(interaction) {
 		await interaction.reply({ content: "Sending...", flags: MessageFlags.Ephemeral });
 		if(interaction.options.getString("reply")) {

@@ -9,7 +9,7 @@ module.exports = {
 			.setName("id")
 			.setDescription("Note ID")
 			.setRequired(true))
-		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 	async execute(interaction) {
 		id = interaction.options.getString("id");
 		await deleteNote(id);

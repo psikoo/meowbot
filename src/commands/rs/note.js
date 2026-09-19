@@ -13,7 +13,7 @@ module.exports = {
 			.setName("note")
 			.setDescription("Note")
 			.setRequired(true))
-		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 	async execute(interaction) {
 		user = interaction.options.getMember("user");
 		note = interaction.options.getString("note");
