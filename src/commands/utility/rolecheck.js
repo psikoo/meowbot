@@ -1,18 +1,18 @@
-const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, AttachmentBuilder, PermissionFlagsBits, EmbedBuilder } = require("discord.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('rolecheck')
-        .setDescription('Checks all members for a specific role')
+        .setName("rolecheck")
+        .setDescription("Checks all members for a specific role")
         .addRoleOption(option => option
-            .setName('role')
-            .setDescription('role')
+            .setName("role")
+            .setDescription("role")
             .setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 
     async execute(interaction) {
         await interaction.deferReply({});
-        const targetRole = interaction.options.getRole('role');
+        const targetRole = interaction.options.getRole("role");
 
         try {
             const members = await interaction.guild.members.fetch();
@@ -37,19 +37,22 @@ module.exports = {
             const embed = new EmbedBuilder()
                 .setTitle(`Role check: ${targetRole.name}`)
                 .addFields(
-                    { name: 'Total Server Members', value: `${members.size}`, inline: false },
-                    { name: 'Members without Role', value: `${withoutRole.length}`, inline: false },
-                    { name: 'Members with Role', value: `${withRole.length}`, inline: false },
+                    { name: "Total Server Members", value: `${members.size}`, inline: false },
+                    { name: "Members without Role", value: `${withoutRole.length}`, inline: false },
+                    { name: "Members with Role", value: `${withRole.length}`, inline: false },
                 )
                 .setTimestamp();
 
+            const fileData = withoutRole.map(user => `${user.user.tag} (${user.id})`).join("\n");
+            const attachment = new AttachmentBuilder(Buffer.from(fileData || "None"), { name: "membersWithoutRole.txt" });
+
             await interaction.editReply({
-                content: withoutRole.map(user => `<@${user.id}>`).join('\n'),
                 embeds: [embed],
+                files: [attachment]
             });
 
         } catch (error) {
-            console.error('Error fetching members:', error);
+            console.error("Error fetching members:", error);
         }
     },
 };
