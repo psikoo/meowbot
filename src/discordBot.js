@@ -10,7 +10,8 @@ const client = new Client({ intents:[
   GatewayIntentBits.DirectMessages,
   GatewayIntentBits.Guilds,
   GatewayIntentBits.GuildMessages,
-  GatewayIntentBits.MessageContent
+  GatewayIntentBits.GuildMembers,
+  GatewayIntentBits.MessageContent,
 ]});
 
 // Command Status
