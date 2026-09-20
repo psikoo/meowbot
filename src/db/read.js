@@ -15,7 +15,7 @@ async function getID(user) {
 async function getRSN(rsn) {
     const queryText = `
 		SELECT "user", rsn, old FROM users
-		WHERE rsn = '${rsn}';
+		WHERE LOWER(rsn) = LOWER('${rsn}');
 	`;
     try { 
 		const res = await db.query(queryText);
