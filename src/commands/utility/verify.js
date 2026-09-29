@@ -12,8 +12,6 @@ module.exports = {
 
     async execute(interaction) {
         const targetMember = interaction.options.getMember('target');
-
-        if (!targetMember) return interaction.reply({ content: 'This user is not in this server' });
         await interaction.deferReply({});
         try {
             await targetMember.roles.add(1367972356093509755);
