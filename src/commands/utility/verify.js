@@ -11,7 +11,8 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 
     async execute(interaction) {
-        const targetMember = interaction.options.getMember('target');
+        const targetMember = interaction.options.getMember('user');
+        if (!targetMember) return interaction.reply({ content: 'This user is not in this server' });
         await interaction.deferReply({});
         try {
             await targetMember.roles.add(1367972356093509755);
