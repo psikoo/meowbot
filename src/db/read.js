@@ -1,43 +1,34 @@
-const db = require('./connection.js');
+const db = require("./connection.js");
 
 async function getID(user) {
-        const queryText = `
+	const queryText = `
 		SELECT "user", rsn, old FROM users
 		WHERE "user" = '${user}';
 	`;
-    try { 
-		const res = await db.query(queryText);
-		return res.rows;
-	} 
-	catch (err) { console.error('🟥 Error getting data:', err.stack); }
+	try { return await db.query(queryText); }
+	catch (err) { console.error("🟥 Error getting data:", err.stack); }
 }
 
 async function getRSN(rsn) {
-    const queryText = `
+	const queryText = `
 		SELECT "user", rsn, old FROM users
 		WHERE LOWER(rsn) = LOWER('${rsn}');
 	`;
-    try { 
-		const res = await db.query(queryText);
-		return res.rows;
-	} 
-	catch (err) { console.error('🟥 Error getting data:', err.stack); }
+	try { return await db.query(queryText); } 
+	catch (err) { console.error("🟥 Error getting data:", err.stack); }
 }
 
 async function getNotes(user) {
-    const queryText = `
+	const queryText = `
 		SELECT * FROM notes
 		WHERE "user" = '${user}';
 	`;
-    try { 
-		const res = await db.query(queryText);
-		return res.rows;
-	} 
-	catch (err) { console.error('🟥 Error getting data:', err.stack); }
+    try { return await db.query(queryText); } 
+	catch (err) { console.error("🟥 Error getting data:", err.stack); }
 }
 
 module.exports = {
-    getID,
-    getRSN,
+	getID,
+	getRSN,
 	getNotes
 };

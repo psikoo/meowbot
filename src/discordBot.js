@@ -43,8 +43,7 @@ client.once(Events.ClientReady, readyClient => {
 client.on(Events.MessageCreate, async message => { handleMessage(message); });
 
 client.on(Events.InteractionCreate, async interaction => {
-	if (interaction.isModalSubmit()) handleModal(interaction);
-  else if (interaction.isChatInputCommand()) handleCommand(interaction);
+  if (interaction.isChatInputCommand()) handleCommand(interaction);
 });
 
 client.login(process.env.BOT_TOKEN);

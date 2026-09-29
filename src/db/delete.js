@@ -1,15 +1,12 @@
-const db = require('./connection.js');
+const db = require("./connection.js");
 
 async function deleteRSN(rsn) {
 	const queryText = `
 		DELETE FROM users 
 		WHERE rsn = '${rsn}';
 	`;
-    try { 
-		const res = await db.query(queryText);
-		return res.rows;
-	} 
-	catch (err) { console.error('🟥 Error getting data:', err.stack); }
+	try { return await db.query(queryText); } 
+	catch (err) { console.error("🟥 Error deleting data:", err.stack); }
 }
 
 async function deleteNote(id) {
@@ -17,11 +14,8 @@ async function deleteNote(id) {
 		DELETE FROM notes 
 		WHERE id = '${id}';
 	`;
-    try { 
-		const res = await db.query(queryText);
-		return res.rows;
-	} 
-	catch (err) { console.error('🟥 Error getting data:', err.stack); }
+	try { return await db.query(queryText); } 
+	catch (err) { console.error("🟥 Error deleting data:", err.stack); }
 }
 
 module.exports = {

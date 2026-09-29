@@ -1,6 +1,6 @@
-const db = require('./connection.js');
-const { getRSN } = require('./read.js');
-const { createUser } = require('./create.js');
+const db = require("./connection.js");
+const { getRSN } = require("./read.js");
+const { createUser } = require("./create.js");
 
 async function updateRSN(rsn, newRSN) {
 	queryText = `
@@ -13,7 +13,7 @@ async function updateRSN(rsn, newRSN) {
 		user = await getRSN(rsn);
 		await createUser(user[0].user, newRSN);
 	} 
-	catch (err) { console.error('🟥 Error getting data:', err.stack); }
+	catch (err) { console.error("🟥 Error updating data:", err.stack); }
 }
 
 module.exports = {

@@ -1,5 +1,5 @@
-const { SlashCommandBuilder, MessageFlags, PermissionFlagsBits, EmbedBuilder } = require("discord.js");
-const { createUser } = require('../../db/create.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require("discord.js");
+const { createUser } = require("../../db/create.js");
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -7,7 +7,7 @@ module.exports = {
 		.setDescription("Link a discord account to an RSN")
 		.addUserOption(option => option
 			.setName("user")
-			.setDescription("Discord user")
+			.setDescription("User")
 			.setRequired(true))
 		.addStringOption(option => option
 			.setName("rsn")
@@ -15,9 +15,10 @@ module.exports = {
 			.setRequired(true))
 		.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
 	async execute(interaction) {
-		user = interaction.options.getMember("user");
-		rsn = interaction.options.getString("rsn");
-		createUser(user.id, rsn)
-		await interaction.reply({ content: "Saved <@"+user.user.id+"> as "+rsn });
+		const user = interaction.options.getMember("user");
+		const rsn = interaction.options.getString("rsn");
+    await interaction.deferReply({});
+		await createUser(user.id, rsn);
+		await interaction.editReply({ content: `Saved <@${user.user.id}> as ${rsn}` });
 	},
 };

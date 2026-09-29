@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, MessageFlags, PermissionFlagsBits, EmbedBuilder } = require("discord.js");
-const { getID, getRSN, getNotes } = require('../../db/read.js');
+const { getID, getRSN, getNotes } = require("../../db/read.js");
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -27,7 +27,7 @@ module.exports = {
 			desc = "";
 			// Is verified member
 			const member = await interaction.guild.members.fetch(rows[0].user);
-			if (!member) console.log('!!!!Member not found in this guild.');
+			if (!member) console.log("!!!!Member not found in this guild.");
 			else if (member.roles.cache.has("1367972356093509755")) desc += ":white_check_mark: Verified member \n\n";
 			else desc += ":x: Unverified member \n\n";
 			// Notes
